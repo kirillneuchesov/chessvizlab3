@@ -1,1 +1,1 @@
-void boardbuild ( char num[9][9]);
+void boardbuild ( char cell[9][9]);

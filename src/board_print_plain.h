@@ -1,1 +1,1 @@
-void boardprint ( char num[9][9]);
+void boardprint ( char cell[9][9]);

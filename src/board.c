@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "board.h"
-void move ( char num[9][9]){
+void move ( char cell[9][9]){
 char hod[6];
 int o=0,p=0,i=0,o1=0,p1=0;
 int flag=1,error=0;
@@ -87,8 +87,8 @@ switch(hod[i])
 if (error){
 printf("\nВы ввели неверные данные\n");}
 }while (error);
-temp=num[o][p];
-num[o][p]=' ';
-num[o1][p1]=temp;
+temp=cell[o][p];
+cell[o][p]=' ';
+cell[o1][p1]=temp;
 printf("\n\n");
 }

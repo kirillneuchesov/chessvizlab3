@@ -1,1 +1,1 @@
-void move ( char num[9][9]);
+void move ( char cell[9][9]);
