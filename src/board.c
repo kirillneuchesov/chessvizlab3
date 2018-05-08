@@ -85,7 +85,7 @@ switch(hod[i])
 }
 }
 if (error){
-printf("\nВы ввели неверные данные\n");}
+printf("\nEnter the correct data\n");}
 }while (error);
 temp=cell[o][p];
 cell[o][p]=' ';

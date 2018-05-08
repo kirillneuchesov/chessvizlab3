@@ -12,10 +12,10 @@ setlocale(LC_ALL,"Rus");
 boardbuild(a);
 boardprint(a);
 do{
-printf("\nМожете делать ход\n");
+printf("\nMake a move\n");
 move(a);
 boardprint(a);
-printf("\nПродолжать игру? (1-да, 0-нет)\n");
+printf("\nWill continue the game (1-Yes, 0-No)\n");
 scanf("%d",&y);
 }while(y);
 return 0;
