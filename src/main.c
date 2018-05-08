@@ -14,6 +14,7 @@ boardprint(a);
 do{
 printf("\nMake a move\n");
 move(a);
+system("clear");
 boardprint(a);
 printf("\nWill continue the game (1-Yes, 0-No)\n");
 scanf("%d",&y);
