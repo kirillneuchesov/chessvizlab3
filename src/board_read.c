@@ -1,26 +1,63 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <ctype.h>
 #include "board_read.h"
-void boardbuild ( char cell[9][9]) {
-int o,p;
-int u;
-for (o=0; o<9; o++){
-    for(p=0; p<9; p++){
-    cell[o][p] = ' ';
-    }
-}
-for (o=1; o<9; o++){
-cell[1][o] = 'p';
-}
-for (o=0,u=8; o<8; o++,u--){
-cell[o][0] = u + '0';
-}
-cell[0][1] = 'r'; cell[0][2] = 'n'; cell[0][3] = 'b'; cell[0][4] = 'q';
-cell[0][5] = 'k'; cell[0][6] = 'b'; cell[0][7] = 'n'; cell[0][8] = 'r';
-for (o=1; o<9; o++){
-cell[6][o] = 'P';
-}
-cell[7][1] = 'R'; cell[7][2] = 'N'; cell[7][3] = 'B'; cell[7][4] = 'Q';
-cell[7][5] = 'K'; cell[7][6] = 'B'; cell[7][7] = 'N'; cell[7][8] = 'R';
-for (o=1,u=97; o<9;o++,u++){
-cell[8][o] = u;
-}
+
+#define CONTAINER container[pozition[3]][pozition[2]] == ' '
+
+int move_figure(int* pozition, char** container) {
+	char i = tolower(container[pozition[1]][pozition[0]]);
+    int k, g1, g2;
+    int coordinates[8][2] = {{1,-2},{1, 2},{-1,-2},{-1, 2},{2,-1},{2, 1},{-2, 1},{-2,-1}};
+    
+    if( i == 'p'){
+		 g1 = pozition[3] - pozition[1]; 
+            g2 = pozition[2] - pozition[0];
+            if (( pow( g1, 2 ) == 1 ||pow( g1, 2 ) == 0 || pow( g1, 2 ) == 4 ) && (g2 == 0 )) {
+                if (CONTAINER) {
+                    return 0;
+                }
+            } 
+	}else if (i == 'r'){
+		if ((pozition[1] == pozition[3] && pozition[0] != pozition[2]) && CONTAINER) {
+                return 0;
+            } else if ((pozition[1] != pozition[3] && pozition[0] == pozition[2]) && CONTAINER) {
+                return 0;
+            } 
+   }else if(i == 'h'){
+	   for (k = 0; k <= 7; k++) {
+            if (pozition[0] + coordinates[k][0] == pozition[2]) {
+                if (pozition[1] + coordinates[k][1] == pozition[3]) {
+                    if (CONTAINER){
+                            return 0;
+                    }
+                }
+            }
+        }
+    }else if (i == 'e'){ 
+		if (pow(pozition[2] - pozition[0], 2) == pow(pozition[3] - pozition[1], 2)){
+                if (CONTAINER) {
+                    return 0;
+                }
+            }   
+    }else if(i == 'q'){ 
+		if ((pow(pozition[2] - pozition[0], 2) == pow(pozition[3] - pozition[1], 2))
+            || (pozition[1] == pozition[3] && pozition[0] != pozition[2]) ||
+            (pozition[1] != pozition[3] && pozition[0] == pozition[2])) {
+                if (CONTAINER) {
+                    return 0;
+                }
+            }
+     }else if(i == 'k'){ 
+        g1 = pozition[2] - pozition[0];
+            g2 = pozition[3] - pozition[1];
+            if (( pow(g1, 2) == 1 || pow(g1, 2) == 0 ) && 
+            ( pow(g2, 2) == 0 || pow(g2, 2) == 1 )) {
+                if (CONTAINER) {
+                return 0;
+                }
+            }
+      }
+      return -1;
 }
