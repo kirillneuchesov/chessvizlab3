@@ -1,23 +1,44 @@
 #include <stdio.h>
-#include<locale.h>
 #include <stdlib.h>
-#include "board_read.h"
-#include "board_print_plain.h"
 #include "board.h"
+#include <locale.h>
+
 int main()
 {
-char  a[9][9];
-int y=1;
-setlocale(LC_ALL,"Rus");
-boardbuild(a);
-boardprint(a);
-do{
-printf("\nMake a move\n");
-move(a);
-system("clear");
-boardprint(a);
-printf("\nWill continue the game (1-Yes, 0-No)\n");
-scanf("%d",&y);
-}while(y);
-return 0;
+	setlocale(LC_ALL, "Rus");
+    system("cls");
+    int i = 0,ext;
+    char places[6];
+    
+    while ( i == 0) {
+        char q;
+        printf("Для начала нажмите (S) для выхода (Q)\n");
+        scanf("%c", &q);
+        
+        if (q == 's') {
+            system("cls");
+		    print_new_board();
+            while (ext == 0) {
+                printf("Введите координаты или нажмите (Q) для выхода:\n" );
+                scanf("%s", places);
+                if (places[0] == 'q') {
+					system("cls");
+					printf("Игра окончена\n");
+                    return 0;
+                } else {
+                    ext = board_func(places, 0);
+                    if (ext == -1) {
+                        printf("Неверные координаты\n");
+                        ext = 0;
+                    }
+                }
+            }
+        } else if (q == 'q') {
+            system("cls");
+            printf("Игра окончена\n");
+            return 0;
+        }
+    }
+    return 0;
 }
+
