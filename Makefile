@@ -1,6 +1,6 @@
-CC=gcc
-CFLAGS=-Wall -Werror -c
-FLAGS =  -Wall -Werror -std=c99
+CC=gcc -lm
+CFLAGS= -lm -Wall -Werror -c 
+FLAGS = -lm -Wall -Werror 
 
 SRC=src/
 BUILD=build/
@@ -14,28 +14,32 @@ EXE=$(BIN)main
 
 .PHONY: all clean
 
-all: bin build $(EXE)
+all: bin build test default $(EXE)
+
+test: bin/chess_test
+
+default: bin/chess
 
 $(EXE): $(objects)
 	$(CC) $(objects) -o $@
 
 $(BIN)chess: $(BUILD)main.o
-	$(CC) $(FLAGS) $(BUILD)main.o -o $@
+	$(CC) $(FLAGS) $(BUILD)main.o -o $(BIN)chess 
 
 $(BUILD)main.o: $(SRC)main.c 
-	$(CC) $(CFLAGS) $(SRC)main.c -o $@
-	
+	$(CC) $(CFLAGS) $(SRC)main.c -o $(BUILD)main.o 
+
 $(BUILD)board_read.o: $(SRC)board_read.c $(SRC)board_read.h 
-	$(CC) $(CFLAGS) $(SRC)board_read.c -o $@
-	
+	$(CC) $(CFLAGS) $(SRC)board_read.c -o $(BUILD)board_read.o
+
 $(BUILD)board.o: $(SRC)board.c $(SRC)board.h
-	$(CC) $(CFLAGS) $(SRC)board.c -o $@
+	$(CC) $(CFLAGS) $(SRC)board.c -o $(BUILD)board.o 
+
+$(BUILD)main_test.o: $(TEST)test.c
+	$(CC) $(CFLAGS) -I thirdparty -I src $(TEST)test.c -o $(BUILD)main_test.o
 
 $(BIN)chess_test:$(BUILD)main_test.o 
-	$(CC) $(FLAGS) $(BUILD)main_test.o -o $@
-
-$(BUILD)main_test.o: $(TEST)test.c $(THIRD)ctest.h $(SRC)board.h $(SRC)board_read.h
-	$(CC) $(CFLAGS) -I thirdparty -I src -c test/main_test.o -o $@
+	$(CC) $(FLAGS) $(BUILD)main_test.o -o $(BIN)chess_test
 
 bin:
 	mkdir bin

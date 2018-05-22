@@ -1,7 +1,7 @@
 #define CTEST_MAIN
 
-#include <chess.h>
-#include <move_fig.h>
+#include "board.h"
+#include "board_read.h"
 #include <ctest.h>
 
 CTEST(Syntax, Correct_Syntax) {

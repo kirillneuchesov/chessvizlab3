@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "board.h"
+#include <math.h>
 #include <locale.h>
 
 int main()
@@ -12,18 +13,18 @@ int main()
     
     while ( i == 0) {
         char q;
-        printf("дКЪ МЮВЮКЮ МЮФЛХРЕ (S) ДКЪ БШУНДЮ (Q)\n");
+        printf("Для начала игры введите (S) для выхода (Q)\n");
         scanf("%c", &q);
         
         if (q == 's') {
             system("cls");
 		    print_new_board();
             while (ext == 0) {
-                printf("бБЕДХРЕ ЙННПДХМЮРШ ХКХ МЮФЛХРЕ (Q) ДКЪ БШУНДЮ:\n" );
+                printf("Введите (Q) для выхода или введите координаты:\n" );
                 scanf("%s", places);
                 if (places[0] == 'q') {
 					system("cls");
-					printf("хЦПЮ НЙНМВЕМЮ\n");
+					printf("Игра окончена\n");
                     return 0;
                 } else {
                     ext = board_func(places, 0);
